@@ -4,40 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db810964-eb85-49c0-9f41-489a6d4f02f0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower.Tests/.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower.Tests/IntegrationTests/PowerMockingInAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower.Tests/IntegrationTests/[Support]/DemoService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower.Tests/PowerAssertions/AssertableValues/AssertableMethodCallTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/JsonSerializerForTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/PowerAssertions/AssertableValues/AssertableHeader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/PowerAssertions/AssertableValues/AssertableHttpRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/PowerAssertions/AssertableValues/AssertableHttpResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/PowerAssertions/AssertableValues/AssertableMethodCall.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/PowerAssertions/[Support]/ExtensionMethods.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/PowerMocking/Testables/TestableHttpClient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/PowerMocking/[Support]/AssertableTextDetailLevel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/PowerMocking/[Support]/ICapturedCallInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/WebApi/IHttpClient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingPower/WebApi/RestApiClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TestingPower/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TestingPower/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="db810964-eb85-49c0-9f41-489a6d4f02f0" name="Changes" comment="Adds support for capturing assertable values of the most common types.&#10;Adds and configures verify.">
+      <change afterPath="$PROJECT_DIR$/TestingPower.Tests/PowerAssertions/AssertableText/AssertableTextBuilderTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestingPower/PowerAssertions/AssertableText/AssertableTextBuilder.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestingPower/PowerAssertions/AssertableText/[Support]/AssertableTextOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestingPower/PowerAssertions/AssertableText/[Support]/ITextManipulator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TestingPower/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TestingPower/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingPower.Tests/PowerMocking/PowerMockTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower.Tests/PowerMocking/PowerMockTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingPower.Tests/TestingPower.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower.Tests/TestingPower.Tests.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingPower.Tests/TestingPower.Tests.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower.Tests/TestingPower.Tests.csproj.DotSettings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingPower.Tests/[Support]/TestHarness.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower.Tests/[Support]/TestHarness.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingPower.Tests/IntegrationTests/PowerMockingInAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower.Tests/IntegrationTests/PowerMockingInAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingPower.Tests/PowerAssertions/AssertableValues/AssertableMethodCallTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower.Tests/PowerAssertions/AssertableValues/AssertableMethodCallTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingPower.Tests/PowerAssertions/AssertableValues/ToAssertableText.MethodCallWithParameters.GivenCapturedCallInfoWithVerboseDetails_ThenItReturnsTextThatContainsTheMethodIdAndParameterInformation.verified.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower.Tests/PowerAssertions/AssertableValues/ToAssertableText.MethodCallWithParameters.GivenCapturedCallInfoWithVerboseDetails_ThenItReturnsTextThatContainsTheMethodIdAndParameterInformation.verified.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingPower/PowerMocking/PowerMock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower/PowerMocking/PowerMock.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingPower/PowerMocking/[Support]/AssertableParameter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower/PowerMocking/[Support]/AssertableParameter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingPower/PowerMocking/[Support]/CapturedCall.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingPower/TestingPower.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower/TestingPower.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingPower/TestingPower.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower/TestingPower.csproj.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingPower/PowerMocking/[Support]/AssertableTextDetailLevel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestingPower/PowerAssertions/AssertableText/[Support]/AssertableTextDetailLevel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="DpaMonitoringSettings">
     <option name="autoShow" value="false" />
@@ -58,6 +46,8 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5abecb93434c4299acd01d522fdf8da2c9a910/3e/87380d49/CollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/992e2ab38c044cc6bd5182db2e525450b508/89/2dad0cc7/CollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a59c2197c32647ecae21ba4b1181648feb08/72/e24cb9e6/HttpResponseMessage.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a59c2197c32647ecae21ba4b1181648feb08/f7/9544bc65/HttpRequestMessage.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4cfeb8b377bc81e1fbb5f7d7a02492cb6ac23e88c8c9d7155944f0716f3d4b/HttpResponseMessage.cs" root0="SKIP_HIGHLIGHTING" />
@@ -99,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1735307829711</updated>
       <workItem from="1735307830750" duration="36183000" />
-      <workItem from="1735565104113" duration="7518000" />
+      <workItem from="1735565104113" duration="12493000" />
     </task>
     <task id="LOCAL−00001" summary="Adds first draft of power mocking">
       <option name="closed" value="true" />
@@ -108,7 +98,14 @@
       <option name="presentableId" value="LOCAL−00001" />
       <updated>1735464903811</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL−00002" summary="Adds support for capturing assertable values of the most common types.&#10;Adds and configures verify.">
+      <option name="closed" value="true" />
+      <created>1735586357923</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1735586357923</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +127,7 @@
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Adds first draft of power mocking" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adds first draft of power mocking" />
+    <MESSAGE value="Adds support for capturing assertable values of the most common types.&#10;Adds and configures verify." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adds support for capturing assertable values of the most common types.&#10;Adds and configures verify." />
   </component>
 </project>

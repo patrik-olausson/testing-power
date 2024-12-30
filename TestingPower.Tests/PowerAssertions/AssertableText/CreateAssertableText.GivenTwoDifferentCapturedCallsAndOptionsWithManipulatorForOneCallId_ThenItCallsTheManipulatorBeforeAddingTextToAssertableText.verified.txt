@@ -1,0 +1,4 @@
+﻿Captured call to Method1 without parameters
+
+Captured call to Manipulated Method2 without parameters
+

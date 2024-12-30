@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TestingPower.PowerMocking
@@ -112,25 +111,26 @@ namespace TestingPower.PowerMocking
                 _returnValues.AddValue(uniqueCallId, returnValueContainer);    
             }
         }
+    }
 
-        public string CreateAssertableText(
-            object? result = null,
-            AssertableTextDetailLevel detailLevel = AssertableTextDetailLevel.Verbose)
+    public class FuncTextManipulator : ITextManipulator
+    {
+        public string CallId { get; }
+        private readonly Func<string, string> _textManipulator;
+
+
+        public FuncTextManipulator(string callId, Func<string, string> textManipulator)
         {
-            var sb = new StringBuilder();
-            if (result != null)
-            {
-                sb.AppendLine("Result:");
-                sb.AppendLine(JsonSerializerForTests.ToJsonString(result));
-                sb.AppendLine();
-            }
-
-            foreach (var capturedCall in _capturedCalls.GetAllValues())
-            {
-                sb.AppendLine(capturedCall.ToAssertableText(detailLevel));
-            }
+            if (string.IsNullOrWhiteSpace(callId))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(callId));
             
-            return sb.ToString();
+            CallId = callId;
+            _textManipulator = textManipulator ?? throw new ArgumentNullException(nameof(textManipulator));
+        }
+
+        public string ManipulateText(string originalText)
+        {
+            return _textManipulator.Invoke(originalText);
         }
     }
 }

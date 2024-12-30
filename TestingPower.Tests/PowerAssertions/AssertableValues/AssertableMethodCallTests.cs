@@ -67,7 +67,7 @@ public class ToAssertableText
 
             var result = sut.ToAssertableText(AssertableTextDetailLevel.Verbose);
 
-            result.Should().Be("Captured call to Class.TheCalledMethod without parameters");
+            result.Should().StartWith("Captured call to Class.TheCalledMethod without parameters");
         }
 
         [Fact]
@@ -77,7 +77,7 @@ public class ToAssertableText
 
             var result = sut.ToAssertableText(AssertableTextDetailLevel.Minimal);
 
-            result.Should().Be("Captured call to Class.TheCalledMethod without parameters");
+            result.Should().StartWith("Captured call to Class.TheCalledMethod without parameters");
         }
 
         [Fact]

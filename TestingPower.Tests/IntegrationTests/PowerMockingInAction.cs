@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text;
 using FluentAssertions;
+using TestingPower.PowerAssertions.AssertableText;
 using TestingPower.PowerMocking;
 using TestingPower.PowerMocking.TestableImplementations;
 using TestingPower.Tests.IntegrationTests;

@@ -1,0 +1,7 @@
+﻿Result:
+{
+  "SomeProperty": "Some value"
+}
+
+Captured call to Method1 without parameters
+
