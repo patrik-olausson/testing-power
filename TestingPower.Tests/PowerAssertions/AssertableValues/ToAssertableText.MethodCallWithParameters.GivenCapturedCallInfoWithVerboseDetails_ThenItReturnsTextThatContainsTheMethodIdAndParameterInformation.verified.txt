@@ -1,0 +1,14 @@
+﻿Captured call to Class.TheCalledMethod with parameters
+{
+  "param1": "value 1",
+  "param2": 42,
+  "param3": true,
+  "param4": {
+    "prop1": 3.14,
+    "prop2": [
+      1,
+      2,
+      3
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace TestingPower.PowerMocking
@@ -11,7 +12,7 @@ namespace TestingPower.PowerMocking
     /// </summary>
     public class PowerMock 
     {
-        private readonly ValueListDictionary<string, CapturedCall> _capturedCalls = new ValueListDictionary<string, CapturedCall>();
+        private readonly ValueListDictionary<string, ICapturedCallInfo> _capturedCalls = new ValueListDictionary<string, ICapturedCallInfo>();
         private readonly ValueQueueDictionary<string, ReturnValueContainer> _returnValues = new ValueQueueDictionary<string, ReturnValueContainer>();
         
         public void PrepareForCallWithReturnValue(
@@ -48,16 +49,16 @@ namespace TestingPower.PowerMocking
                 numberOfCalls);
         }
 
-        public Task HandleCallWithoutReturnValue(string uniqueCallId, params AssertableParameter[] parameters)
+        public Task HandleCallWithoutReturnValue(ICapturedCallInfo capturedCallInfo)
         {
-            RegisterCallAndGetReturnValue(uniqueCallId, parameters);
+            RegisterCallAndGetReturnValue(capturedCallInfo);
 
             return Task.CompletedTask;
         }
-
-        public Task<TReturnValue> HandleCallWithReturnValue<TReturnValue>(string uniqueCallId, params AssertableParameter[] parameters)
+        
+        public Task<TReturnValue> HandleCallWithReturnValue<TReturnValue>(ICapturedCallInfo capturedCallInfo)
         {
-            var valueToReturn = RegisterCallAndGetReturnValue(uniqueCallId, parameters);
+            var valueToReturn = RegisterCallAndGetReturnValue(capturedCallInfo);
 
             try
             {
@@ -69,13 +70,13 @@ namespace TestingPower.PowerMocking
             }
         }
 
-        private object? RegisterCallAndGetReturnValue(string uniqueCallId, IReadOnlyCollection<AssertableParameter> parameters)
+        private object? RegisterCallAndGetReturnValue(ICapturedCallInfo capturedCallInfo)
         {
-            _capturedCalls.AddValue(uniqueCallId, new CapturedCall(uniqueCallId, parameters));
-            var valueContainer = _returnValues.GetValue(uniqueCallId);
+            _capturedCalls.AddValue(capturedCallInfo.Id, capturedCallInfo);
+            var valueContainer = _returnValues.GetValue(capturedCallInfo.Id);
             if (valueContainer == null)
             {
-                throw new PowerMockCallNotPreparedException($"Unexpected call to uniqueCallId: {uniqueCallId}. Make sure to prepare call during test setup!");
+                throw new PowerMockCallNotPreparedException($"Unexpected call to uniqueCallId: {capturedCallInfo.Id}. Make sure to prepare call during test setup!");
             }
 
             if (valueContainer.ContainsException)
@@ -86,12 +87,12 @@ namespace TestingPower.PowerMocking
             return valueContainer.ValueToReturn;
         }
         
-        public IReadOnlyCollection<CapturedCall> GetCapturedCalls(string uniqueCallId)
+        public IReadOnlyCollection<ICapturedCallInfo> GetCapturedCalls(string uniqueCallId)
         {
             return _capturedCalls.GetValues(uniqueCallId);
         }
 
-        public IReadOnlyCollection<CapturedCall> GetAllCapturedCalls()
+        public IReadOnlyCollection<ICapturedCallInfo> GetAllCapturedCalls()
         {
             return _capturedCalls.GetAllValues();
         }
@@ -110,6 +111,26 @@ namespace TestingPower.PowerMocking
             {
                 _returnValues.AddValue(uniqueCallId, returnValueContainer);    
             }
+        }
+
+        public string CreateAssertableText(
+            object? result = null,
+            AssertableTextDetailLevel detailLevel = AssertableTextDetailLevel.Verbose)
+        {
+            var sb = new StringBuilder();
+            if (result != null)
+            {
+                sb.AppendLine("Result:");
+                sb.AppendLine(JsonSerializerForTests.ToJsonString(result));
+                sb.AppendLine();
+            }
+
+            foreach (var capturedCall in _capturedCalls.GetAllValues())
+            {
+                sb.AppendLine(capturedCall.ToAssertableText(detailLevel));
+            }
+            
+            return sb.ToString();
         }
     }
 }

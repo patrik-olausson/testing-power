@@ -4,11 +4,13 @@ namespace TestingPower.Tests;
 
 public class TestHarness(ITestOutputHelper testOutputHelper)
 {
+    protected void LogTestOutput(string message) => testOutputHelper.WriteLine(message);
+    
     protected async Task<TException> AssertThrowsAnyAsync<TException>(Func<Task> testCode)
         where TException : Exception
     {
         var exception = await Assert.ThrowsAnyAsync<TException>(testCode);
-        testOutputHelper?.WriteLine($"Exception message: {exception.Message }");
+        LogTestOutput($"Exception message: {exception.Message }");
 
         return exception;
     } 
@@ -17,7 +19,7 @@ public class TestHarness(ITestOutputHelper testOutputHelper)
         where TException : Exception
     {
         var exception = Assert.ThrowsAny<TException>(testCode);
-        testOutputHelper?.WriteLine($"Exception message: {exception.Message }");
+        LogTestOutput($"Exception message: {exception.Message }");
 
         return exception;
     } 

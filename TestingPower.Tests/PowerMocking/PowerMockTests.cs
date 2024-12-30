@@ -1,5 +1,6 @@
 ﻿using System.Security.Authentication;
 using FluentAssertions;
+using TestingPower.PowerAssertions.CapturedCalls;
 using TestingPower.PowerMocking;
 using Xunit.Abstractions;
 
@@ -12,7 +13,7 @@ public class HandleCallWithReturnValue(ITestOutputHelper testOutputHelper) : Pow
     {
         var sut = CreateSut();
         
-        await AssertThrowsAnyAsync<PowerMockCallNotPreparedException>(() => sut.HandleCallWithReturnValue<int>("UniqueCallId"));
+        await AssertThrowsAnyAsync<PowerMockCallNotPreparedException>(() => sut.HandleCallWithReturnValue<int>(AssertableMethodCall.ForMethodWithoutParameters("UniqueCallId")));
     }
     
     [Fact]
@@ -22,7 +23,7 @@ public class HandleCallWithReturnValue(ITestOutputHelper testOutputHelper) : Pow
         var sut = CreateSut();
         sut.PrepareForCallWithReturnValue(uniqueCallId, 10);
 
-        var result = await sut.HandleCallWithReturnValue<int>(uniqueCallId);
+        var result = await sut.HandleCallWithReturnValue<int>(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
 
         result.Should().Be(10);
         sut.GetCapturedCalls(uniqueCallId).Should().HaveCount(1);
@@ -34,9 +35,9 @@ public class HandleCallWithReturnValue(ITestOutputHelper testOutputHelper) : Pow
         const string uniqueCallId = "UniqueCallId";
         var sut = CreateSut();
         sut.PrepareForCallWithReturnValue(uniqueCallId, 10);
-        await sut.HandleCallWithReturnValue<int>(uniqueCallId);
+        await sut.HandleCallWithReturnValue<int>(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
         
-        await AssertThrowsAnyAsync<PowerMockCallNotPreparedException>(() => sut.HandleCallWithReturnValue<int>(uniqueCallId));
+        await AssertThrowsAnyAsync<PowerMockCallNotPreparedException>(() => sut.HandleCallWithReturnValue<int>(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId)));
     }
     
     [Fact]
@@ -46,8 +47,8 @@ public class HandleCallWithReturnValue(ITestOutputHelper testOutputHelper) : Pow
         var sut = CreateSut();
         sut.PrepareForCallWithReturnValue(uniqueCallId, 10, numberOfCalls: 2);
         
-        var firstResult = await sut.HandleCallWithReturnValue<int>(uniqueCallId);
-        var secondResult = await sut.HandleCallWithReturnValue<int>(uniqueCallId);
+        var firstResult = await sut.HandleCallWithReturnValue<int>(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
+        var secondResult = await sut.HandleCallWithReturnValue<int>(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
         
         firstResult.Should().Be(10);
         secondResult.Should().Be(10);
@@ -61,7 +62,7 @@ public class HandleCallWithReturnValue(ITestOutputHelper testOutputHelper) : Pow
         var sut = CreateSut();
         sut.PrepareForCallWithReturnValue(uniqueCallId, null);
 
-        var result = await sut.HandleCallWithReturnValue<object>(uniqueCallId);
+        var result = await sut.HandleCallWithReturnValue<object>(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
 
         result.Should().BeNull();
     }
@@ -73,7 +74,7 @@ public class HandleCallWithReturnValue(ITestOutputHelper testOutputHelper) : Pow
         var sut = CreateSut();
         sut.PrepareForCallWithReturnValue(uniqueCallId, null);
 
-        await AssertThrowsAnyAsync<PowerMockInvalidTypeException>(() => sut.HandleCallWithReturnValue<int>(uniqueCallId));
+        await AssertThrowsAnyAsync<PowerMockInvalidTypeException>(() => sut.HandleCallWithReturnValue<int>(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId)));
     }
     
     [Fact]
@@ -93,7 +94,7 @@ public class HandleCallWithoutReturnValue(ITestOutputHelper testOutputHelper) : 
     {
         var sut = CreateSut();
         
-        await AssertThrowsAnyAsync<PowerMockCallNotPreparedException>(() => sut.HandleCallWithoutReturnValue("UniqueCallId"));
+        await AssertThrowsAnyAsync<PowerMockCallNotPreparedException>(() => sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters("UniqueCallId")));
     }
     
     [Fact]
@@ -103,7 +104,7 @@ public class HandleCallWithoutReturnValue(ITestOutputHelper testOutputHelper) : 
         var sut = CreateSut();
         sut.PrepareForCallWithoutReturnValue(uniqueCallId);
 
-        await sut.HandleCallWithoutReturnValue(uniqueCallId);
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
         
         sut.GetCapturedCalls(uniqueCallId).Should().HaveCount(1);
     }
@@ -114,9 +115,9 @@ public class HandleCallWithoutReturnValue(ITestOutputHelper testOutputHelper) : 
         const string uniqueCallId = "UniqueCallId";
         var sut = CreateSut();
         sut.PrepareForCallWithoutReturnValue(uniqueCallId);
-        await sut.HandleCallWithoutReturnValue(uniqueCallId);
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
         
-        await AssertThrowsAnyAsync<PowerMockCallNotPreparedException>(() => sut.HandleCallWithoutReturnValue(uniqueCallId));
+        await AssertThrowsAnyAsync<PowerMockCallNotPreparedException>(() => sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId)));
     }
     
     [Fact]
@@ -126,8 +127,8 @@ public class HandleCallWithoutReturnValue(ITestOutputHelper testOutputHelper) : 
         var sut = CreateSut();
         sut.PrepareForCallWithoutReturnValue(uniqueCallId, numberOfCalls: 2);
         
-        await sut.HandleCallWithoutReturnValue(uniqueCallId);
-        await sut.HandleCallWithoutReturnValue(uniqueCallId);
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
         
         sut.GetCapturedCalls(uniqueCallId).Should().HaveCount(2);
     }
@@ -151,7 +152,7 @@ public class PrepareForCallThatShouldThrowException(ITestOutputHelper testOutput
         var sut = CreateSut();
         sut.PrepareForCallThatShouldThrowException(uniqueCallId, new AuthenticationException("Fake exception"));
 
-        await AssertThrowsAnyAsync<AuthenticationException>(() => sut.HandleCallWithReturnValue<string>(uniqueCallId));
+        await AssertThrowsAnyAsync<AuthenticationException>(() => sut.HandleCallWithReturnValue<string>(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId)));
         sut.GetCapturedCalls(uniqueCallId).Should().HaveCount(1);
     }
     
@@ -162,7 +163,7 @@ public class PrepareForCallThatShouldThrowException(ITestOutputHelper testOutput
         var sut = CreateSut();
         sut.PrepareForCallThatShouldThrowException(uniqueCallId, new AuthenticationException("Fake exception"));
 
-        await AssertThrowsAnyAsync<AuthenticationException>(() => sut.HandleCallWithoutReturnValue(uniqueCallId));
+        await AssertThrowsAnyAsync<AuthenticationException>(() => sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId)));
         sut.GetCapturedCalls(uniqueCallId).Should().HaveCount(1);
     }
     
@@ -193,7 +194,7 @@ public class GetAllCapturedCalls(ITestOutputHelper testOutputHelper) : PowerMock
         const string uniqueCallId = "UniqueCallId";
         var sut = CreateSut();
         sut.PrepareForCallWithoutReturnValue(uniqueCallId);
-        await sut.HandleCallWithoutReturnValue(uniqueCallId);
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
 
         var result = sut.GetAllCapturedCalls();
 
@@ -207,9 +208,9 @@ public class GetAllCapturedCalls(ITestOutputHelper testOutputHelper) : PowerMock
         const string uniqueCallId2 = "UniqueCallId_2";
         var sut = CreateSut();
         sut.PrepareForCallWithoutReturnValue(uniqueCallId1);
-        await sut.HandleCallWithoutReturnValue(uniqueCallId1);
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId1));
         sut.PrepareForCallWithoutReturnValue(uniqueCallId2);
-        await sut.HandleCallWithoutReturnValue(uniqueCallId2);
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId2));
 
         var result = sut.GetAllCapturedCalls();
 
@@ -235,7 +236,7 @@ public class GetCapturedCalls(ITestOutputHelper testOutputHelper) : PowerMockTes
         const string uniqueCallId = "UniqueCallId";
         var sut = CreateSut();
         sut.PrepareForCallWithoutReturnValue(uniqueCallId);
-        await sut.HandleCallWithoutReturnValue(uniqueCallId);
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId));
 
         var result = sut.GetCapturedCalls(uniqueCallId);
 
@@ -249,9 +250,9 @@ public class GetCapturedCalls(ITestOutputHelper testOutputHelper) : PowerMockTes
         const string uniqueCallId2 = "UniqueCallId_2";
         var sut = CreateSut();
         sut.PrepareForCallWithoutReturnValue(uniqueCallId1);
-        await sut.HandleCallWithoutReturnValue(uniqueCallId1);
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId1));
         sut.PrepareForCallWithoutReturnValue(uniqueCallId2);
-        await sut.HandleCallWithoutReturnValue(uniqueCallId2);
+        await sut.HandleCallWithoutReturnValue(AssertableMethodCall.ForMethodWithoutParameters(uniqueCallId2));
 
         var result = sut.GetCapturedCalls(uniqueCallId1);
 
