@@ -2,6 +2,10 @@ name: CI Build
 
 on: [push]
 
+permissions:
+  checks: write
+  pull-requests: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,5 +30,6 @@ jobs:
 
       - name: Publish test results
         uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
         with:
           files: TestingPower.Tests/TestResults/test_results.trx
