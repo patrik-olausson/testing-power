@@ -29,3 +29,17 @@ jobs:
         with:
           name: test-results
           path: TestingPower.Tests/TestResults/test_results.trx
+
+  display-test-results:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download test results
+        uses: actions/download-artifact@v4
+        with:
+          name: test-results
+          path: ./TestResults
+
+      - name: Display test results
+        run: cat ./TestResults/test_results.trx
